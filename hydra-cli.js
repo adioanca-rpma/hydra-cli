@@ -726,11 +726,21 @@ class Program {
         });
         if (ids.length) {
           let redisClient = hydra.getClonedRedisClient();
-          redisClient.hdel('hydra:service:nodes', ids);
-          redisClient.quit();
+          redisClient.hdel('hydra:service:nodes', ids, (err, result) => {
+            if (!err) {
+               console.log(`Had ${result} entries removed`);
+            } else {
+               console.log(`Unable to remove ${ids.length} entries. Reason:`, err);
+            }
+
+            redisClient.quit();
+            this.exitApp();
+          });
         }
-        console.log(`${ids.length} entries removed`);
-        this.exitApp();
+        else {
+          console.log(`${ids.length} entries removed`);
+          this.exitApp();
+        }
       })
       .catch((err) => {
         console.log(err);
