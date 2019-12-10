@@ -17,7 +17,7 @@
   "repository": "flywheelsports/hydra-cli",
   "dependencies": {
     "bluebird": "3.5.1",
-    "hydra": "1.7.0"
+    "hydra": "adioanca-rpma/hydra#master"
   },
   "devDependencies": {
     "chai": "3.5.0",
